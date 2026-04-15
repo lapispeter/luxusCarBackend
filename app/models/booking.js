@@ -13,7 +13,8 @@ const Booking = sequelize.define('bookings', {
         }  },
     endDate: { type: DataTypes.DATEONLY,  allowNull: false  },
     carId: { type: DataTypes.INTEGER,  allowNull: false  },
-    totalPrice: { type: DataTypes.INTEGER,  allowNull: true, validate:{max:2147483647, min:0}  },
+    totalPrice: { type: DataTypes.INTEGER,  allowNull: true, validate:{max:2147483647, min:{args: [0],
+            msg: "Az érték nem lehet negatív!" }}  },
     userUID: { type: DataTypes.STRING,  allowNull: false, validate:{minhossz(value){if(value && value.length <1){throw new Error("legalbb egy karakter")}}}  }
 }, {
     timestamps: true,
