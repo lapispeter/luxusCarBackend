@@ -60,7 +60,7 @@ const BookingController = {
 
         //átfedés ellenőrzés
 
-        const overlap = Booking.findOne({
+        const overlap = await Booking.findOne({
             where:{carId: carId,
                 [Op.and]: [{startDate:{[Op.lt]:endDate}, endDate: {[Op.gt]:startDate}}]
             }
