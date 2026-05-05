@@ -17,4 +17,7 @@ db.Booking = Booking;
 Write the relationships between the models here.
 */
 
+db.Car.hasMany(db.Booking)
+
+
 export default db;

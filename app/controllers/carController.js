@@ -1,4 +1,5 @@
 import Car from '../models/car.js'
+import Booking from '../models/booking.js'
 
 const CarController = {
     async index(req, res) {
@@ -14,7 +15,14 @@ const CarController = {
         }
     },
     async tryIndex(req, res) {
-        const cars = await Car.findAll()
+        const cars = await Car.findAll({
+            attributes: ['id', 'brand', 'model', 
+                'licensePlate', 'year', 'dailyPrice'],
+            include: {
+                model: Booking,
+                attributes: ['id', 'startDate', 'endDate', 'carId', 'totalPrice']
+            }
+        })
         res.status(200)
         res.json({
             success: true,
