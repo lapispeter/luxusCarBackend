@@ -42,12 +42,19 @@ const CarController = {
         }
     },
     async tryShow(req, res) {
-        const car = await Car.findByPk(req.params.id)
-        res.status(200)
-        res.json({
-            success: true,
-            data: car
-        })
+    const car = await Car.findByPk(req.params.id, {
+        attributes: ['id', 'brand', 'model', 'licensePlate', 'year', 'dailyPrice'],
+        include: {
+            model: Booking,
+            attributes: ['id', 'startDate', 'endDate', 'carId', 'totalPrice']
+        }
+    })
+
+    res.status(200)
+    res.json({
+        success: true,
+        data: car
+    })
     },
     async store(req, res) {
         try {
